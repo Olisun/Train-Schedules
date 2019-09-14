@@ -24,5 +24,8 @@
   4. Setting time methods from trivia game hw
   5. Bootstrap for layout
 
+## Psuedo Code:
+
+
 ## Remaining Bugs:
 
