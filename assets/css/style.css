@@ -1,0 +1,45 @@
+.jumbotron {
+  background: black;
+  text-align: center;
+  height: 375px;
+  font-family: Monaco, 'Courier New', monospace;
+}
+
+img {
+  height: 225px;
+  width: 90%;
+  align-items: center;
+  margin-top: -40px;
+}
+
+#jumbotron-title {
+  font-family: Monaco, 'Courier New', monospace;
+  font-size: 36px;
+  margin-top: 20px;
+}
+
+#jumbotron-sub-title {
+  font-family: Monaco, 'Courier New', monospace;
+  font-size: 18px;
+}
+
+.card-header {
+  font-family: Monaco, 'Courier New', monospace;
+  font-size: 18px;
+  text-align: center;
+}
+
+#departure-schedule {
+  font-family: Monaco, 'Courier New', monospace;
+  font-size: 13px;
+}
+
+form {
+  font-family: Monaco, 'Courier New', monospace;
+  font-size: 13px;
+  height: 400px;
+}
+
+button {
+  color: red;
+}
