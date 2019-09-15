@@ -12,16 +12,16 @@ var firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
-// Setting variable to Firebase method.#
+// Setting variable to Firebase method.
 var database = firebase.database();
 
-// Capturing user input from the form.
+// Making a variables for the form submit button and the reset button;
 var submit = $('#submit-button');
-var route = $('#input-for-route');
-var destination = $('#input-for-destination');
-var firstTrain = $('#input-for-first-train-time');
-var departFreq = $('#input-for-frequency');
+var reset = $('#reset');
 
+reset.on('click', function() {
+  location.reload(true);
+})
 
 // Creating event listener function for when the user clicks the submit button. 
 submit.on('click', function(event) {
@@ -29,10 +29,10 @@ submit.on('click', function(event) {
   // First need to prevent the default action of the form's submit button which clears the form. 
   event.preventDefault();
 
-  // Setting variables to the values from the form inputs. 
+  // Setting variables to capture the values from the user's form inputs. 
   var routeInput = $('#input-for-route').val().trim();
   var destinationInput = $('#input-for-destination').val().trim();
-  var firstTrainInput = moment($('#input-for-first-train-time').val().trim(), 'HH:mm').format('HH:mm');
+  var firstTrainInput = moment($('#input-for-first-train-time').val().trim(), 'HH:mm').format('HH:mm'); // <-- The .format() formats the time into military time.
   var frequencyInput = $('#input-for-frequency').val().trim();
 
   // Creating an object to store the form data. 
@@ -46,21 +46,21 @@ submit.on('click', function(event) {
   // This is a firebase method that pushes the variable above to the firebase database. 
   database.ref().push(addTrain);
 
-  // console-logging addTrain's key-value info. 
+  // console-logging addTrain's key-value info. so I can use devtools to inspect.
   console.log(addTrain.route);
   console.log(addTrain.destination);
   console.log(addTrain.firstTrain);
   console.log(addTrain.frequency);
-  alert('Train is coming!');
+  alert('Schedule Updated');
 
   // This removes the text from the input fields in the form after the the user clicks the submit button. 
-  route.val('');
-  destination.val('');
-  firstTrain.val('');
-  departFreq.val('');
+  $('#input-for-route').val('');
+  $('#input-for-destination').val('');
+  $('#input-for-first-train-time').val('');
+  $('#input-for-frequency').val('');
 });
 
-// Using firebase's built-in methods, this function will add what the user inputed in the form to the firebase database and then appened to the the HTML table. 
+// Using firebase's built-in methods, this main function will add what the user inputed in the form to the firebase database and then appened to the the HTML table. 
 database.ref().on('child_added', function(childSnapshot) {
   console.log(childSnapshot.val())
 
@@ -70,53 +70,56 @@ database.ref().on('child_added', function(childSnapshot) {
   var firstTrainInput = childSnapshot.val().firstTrain;
   var frequencyInput = childSnapshot.val().frequency;
 
-  // consle-loggin train info. 
+  // cons0le-loggin train info for inspection.
   console.log(routeInput);
   console.log(destinationInput);
   console.log(firstTrainInput);
   console.log(frequencyInput);
 
-  // Formatting firstTrainInput. 
+  // Formatting firstTrainInput into military time.
   var firstTrainInputFormat = moment(firstTrainInput).format('HH:mm');
 
   // Using a built-in moment method, this ensures the First Train Time entered on the DOM is set one year before the current train time.
-  var firstTrainConverted = moment(firstTrain, 'HH:mm').subtract(1, 'years');
+  var firstTrainConverted = moment(firstTrainInput, 'HH:mm').subtract(1, 'years');
   console.log(firstTrainConverted);
 
-  // var currentTimeDOM = $('#current-time-dom');
-  // var currentTime = moment();
-  // var currentTimeFormatted = moment(currentTime).format('HH:mm');
+  var currentTimeDOM = $('#current-time-dom');
+  var currentTime = moment();
+  var currentTimeFormatted = moment(currentTime).format('HH:mm');
 
-  // Pushing the current time from the global variable to the DOM. 
-  // currentTimeFormatted.text(moment(currentTime).format('HH:mm'));
+  // Pushing the current time from the global variable to the DOM for reference.
+  currentTimeDOM.text(currentTimeFormatted);
 
+  // This moment method gets the difference between the times of firstTrainConverted and current time.
   var timeDifference = moment().diff(moment(firstTrainConverted), 'minutes')
-  console.log('Time Difference :' + timeDifference);
+  console.log('Time Difference: ' + timeDifference);
 
   // Using the modal operator will determine the time apart by finding the remainder of the time difference and the frequency.
 
-  var timeRemainder = timeDifference % frequency;
+  var timeRemainder = timeDifference % frequencyInput;
   console.log(timeRemainder);
 
   // Determining the minutes till the next train. 
-  var nextArrival = frequency - timeRemainder;
+  var nextArrival = frequencyInput - timeRemainder;
   console.log('Next Arrival: ' + nextArrival);
 
   // Determing the next arrival time with moment built-in methods. 
-  var nextArrivalAdd = moment().add(nextArrival, 'mimnutes');
+  var nextArrivalAdd = moment().add(nextArrival, 'minutes');
   var nextTrainArrival = moment(nextArrivalAdd).format('HH:mm');
   console.log('Time Arriving: ' + nextTrainArrival);
 
   // Now we take the data pushed up to firebase along with the calculations above and prepend all the info to the HTML table. 
-  var tableRow = $('<tr>').append(
-    $("<td>").text(routeInput),
-    $("<td>").text(destinationInput),
-    $("<td>").text(frequencyInput),
-    $("<td>").text(nextTrainArrival),
-    $("<td>").text(nextArrival),
+  var tableRow = $('<tr>');
+
+  tableRow.append(
+    $('<td>').text(routeInput),
+    $('<td>').text(destinationInput),
+    $('<td>').text(frequencyInput),
+    $('<td>').text(nextTrainArrival),
+    $('<td>').text(nextArrival),
   )
 
   // Finally we are appending the newly created rows to the HTML table. 
-  var trainSchedualTable = $('#train-schedual-table > body');
-  trainSchedualTable.append(tableRow);
+  var trainScheduleTable = $('#for-append');
+  trainScheduleTable.append(tableRow);
 });

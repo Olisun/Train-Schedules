@@ -62,6 +62,22 @@ img {
   text-align: left;
 }
 
+#reset {
+  background-color: aqua;
+  text-align: left;
+  font-family: Monaco, 'Courier New', monospace;
+  font-size: 1rem;
+  width: 140px;
+  height: 35px;
+  margin-left: 20px;
+  margin-bottom: 20px;
+  padding-left: 12px;
+  border-radius: 5px;
+  background-color: #007bff;
+  border-color: #007bff;
+  color: white;
+}
+
 form {
   font-family: Monaco, 'Courier New', monospace;
   font-size: 13px;
@@ -70,4 +86,8 @@ form {
 
 button {
   color: red;
+}
+
+#for-prepend {
+  text-align: left;
 }
