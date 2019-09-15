@@ -25,7 +25,12 @@
   5. Bootstrap for layout
 
 ## Psuedo Code:
-
-
-## Remaining Bugs:
+  1. for calculating next arrival:
+    a. first train time + frequency
+  2. for calculating minutes away:
+    b. current time + frequency
+  
+## Bugs
+  1. table info not appending back to the DOM. Error message says frequency var not defind. 
+  2. Current time not showing up in the div set up for it. 
 
