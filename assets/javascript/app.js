@@ -15,11 +15,11 @@ firebase.initializeApp(firebaseConfig);
 // Setting variable to Firebase method.
 var database = firebase.database();
 
-// Making a variables for the form submit button and the reset button;
+// Making a variables for the form submit button and the refresh button;
 var submit = $('#submit-button');
-var reset = $('#reset');
+var refresh = $('#refresh');
 
-reset.on('click', function() {
+refresh.on('click', function() {
   location.reload(true);
 })
 
@@ -83,12 +83,19 @@ database.ref().on('child_added', function(childSnapshot) {
   var firstTrainConverted = moment(firstTrainInput, 'HH:mm').subtract(1, 'years');
   console.log(firstTrainConverted);
 
+  // Setting a variable for the current time clock on the DOM. 
   var currentTimeDOM = $('#current-time-dom');
-  var currentTime = moment();
-  var currentTimeFormatted = moment(currentTime).format('HH:mm');
 
-  // Pushing the current time from the global variable to the DOM for reference.
-  currentTimeDOM.text(currentTimeFormatted);
+  // This fumnction uses moment's time method to format the clock time in military time to the seconds.
+  var currentTimeClock = function() {
+    var currentTime = moment();
+    var currentTimeFormatted = moment(currentTime).format('HH:mm:ss');
+    currentTimeDOM.text(currentTimeFormatted);
+  }
+
+  // Using setInterval method to make the clock dynamic. 
+  setInterval(currentTimeClock, 1000);
+  currentTimeDOM.text(currentTimeClock);
 
   // This moment method gets the difference between the times of firstTrainConverted and current time.
   var timeDifference = moment().diff(moment(firstTrainConverted), 'minutes')
@@ -99,9 +106,11 @@ database.ref().on('child_added', function(childSnapshot) {
   var timeRemainder = timeDifference % frequencyInput;
   console.log(timeRemainder);
 
-  // Determining the minutes till the next train. 
+  // Determining the minutes till the next train by subtracting the remainder of the 1 year timeDifference calculated above from the departure frequency that the user enters on the form before when submitting.
   var nextArrival = frequencyInput - timeRemainder;
   console.log('Next Arrival: ' + nextArrival);
+
+
 
   // Determing the next arrival time with moment built-in methods. 
   var nextArrivalAdd = moment().add(nextArrival, 'minutes');
