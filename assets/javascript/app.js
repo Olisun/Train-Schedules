@@ -110,8 +110,6 @@ database.ref().on('child_added', function(childSnapshot) {
   var nextArrival = frequencyInput - timeRemainder;
   console.log('Next Arrival: ' + nextArrival);
 
-
-
   // Determing the next arrival time with moment built-in methods. 
   var nextArrivalAdd = moment().add(nextArrival, 'minutes');
   var nextTrainArrival = moment(nextArrivalAdd).format('HH:mm');
