@@ -33,4 +33,5 @@
 ## Bugs
   1. table info not appending back to the DOM. Error message says frequency var not defind. 
   2. Current time not showing up in the div set up for it. 
+  3. (Bonus Goal): trying to get Minutes Away column dynamic. Not working so far.
 

@@ -51,7 +51,6 @@ submit.on('click', function(event) {
   console.log(addTrain.destination);
   console.log(addTrain.firstTrain);
   console.log(addTrain.frequency);
-  alert('Schedule Updated');
 
   // This removes the text from the input fields in the form after the the user clicks the submit button. 
   $('#input-for-route').val('');
@@ -62,7 +61,7 @@ submit.on('click', function(event) {
 
 // Using firebase's built-in methods, this main function will add what the user inputed in the form to the firebase database and then appened to the the HTML table. 
 database.ref().on('child_added', function(childSnapshot) {
-  console.log(childSnapshot.val())
+  console.log(childSnapshot.val());
 
   // Creating variables to store the form input data using firebase's childSnapshot() method. 
   var routeInput = childSnapshot.val().route;

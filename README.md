@@ -4,7 +4,7 @@
 ![](assets/images/screen-shot.png)
 
 ## About the project:
-We had to build an app that a hypotetical train administrator could use to add train lines to a table. The user fills out input fields on a form and submits the data. The data is then pushed up to my Firebase database. Immediately, the data is then appened down into a table on the DOM. 
+We had to build an app that a hypotetical train administrator could use to add train lines to a table. The user fills out input fields on a form and submits the data. The data is then pushed up to my Firebase database. Immediately, the data is then appended back down into a table on the DOM. 
 
   * When adding trains, administrators should be able to submit the following:
     * Train Name
@@ -30,28 +30,36 @@ I reviewed the class activities in Firebase and used them as guides in helping t
 
 Pushing the data up to the Firebase data was pretty straighfoward as guided by our class exercises. So was formatting the times using Moment. I ran into some bugs trying to get the table appended correctly back onto the DOM. For some reason, the method outlined in the timesheet activity wasn't working for me so I made a tiny deviation. I created another ID in the tbody tag to append the table to and it worked. I also got a functioning time clock running. Now, for the bonus section, I'm trying to make the minutes away numbers in the last column dynamic.
 
-## Code Snippits I'm Proud Of:
+## Code Snippits I like:
+  1. I made a button so the user can click on to refresh the next arrival and minutes away             times since they're not (yet) dynamic. The train schedule data ("Route Name", "Destination",      "Frequency in Minutes" does not reset)
 
-  1. This is pretty straight-foward but it's just telling me that my problem solving is evoling.
-    <tbody id="for-append" style="font-family: Monaco, 'Courier New', monospace; font-size: 13px; text-align: center;">
+      var refresh = $('#refresh');
 
-    var trainScheduleTable = $('#for-append');
-    trainScheduleTable.append(tableRow);
+      refresh.on('click', function() {
+      location.reload(true);
 
-  2.This is my dynamic clock in the table section (Must give props to Daniel for this!). My next goal is to make the Minutes Away all dynamic.
+  2. This is my dynamic clock in the table section (Must give props to Daniel for this!). I made this so the user can have a clock to reference the next arrival and minutes away columns. My stretch goal is to make the Next Arrival and Minutes Away numbers all dynamic.
 
     // This fumnction uses moment's time method to format the clock time in military time to the seconds.
-    var currentTimeClock = function() {
-    var currentTime = moment();
-    var currentTimeFormatted = moment(currentTime).format('HH:mm:ss');
-    currentTimeDOM.text(currentTimeFormatted);
+      var currentTimeClock = function() {
+      var currentTime = moment();
+      var currentTimeFormatted = moment(currentTime).format('HH:mm:ss');
+      currentTimeDOM.text(currentTimeFormatted);
   }
-
     // Using setInterval method to make the clock dynamic. 
-    setInterval(currentTimeClock, 1000);
-    currentTimeDOM.text(currentTimeClock);
+      setInterval(currentTimeClock, 1000);
+      currentTimeDOM.text(currentTimeClock);
 
-## Links to portfolio pages (This app has been added to my portfolio): 
+  3. This is pretty simple but it's a solution to a bug where the data was not appending to the        table. I followed the timesheet exercise and in there, the data was appended to an id in the      thead section. That was not working for me so I experimemnted with work-arounds and targeting     a new id in the tbody section worked. I just like this because I probably would not have          thought of this so quickly one-and-a-half to two weeks ago. 
+    
+      tbody id="for-append" style="font-family: Monaco, 'Courier New', monospace; font-size: 13px; text-align: center;">
+
+      var trainScheduleTable = $('#for-append');
+      trainScheduleTable.append(tableRow);
+
+## Links to portfolio pages (This app has been added to my portfolio pages): 
+
+#### Please Note - I see that adding this project messed up the css formatting in each of those pages' portfolio content box. However, I intend to build my real portfolio page fromm scratch for the next home work assignment "Updating Your Portfolio Page". That's why I'm not fixing these at this moment.
 
 https://olisun.github.io/Bootstrap-Portfolio/portfolio.html
 
