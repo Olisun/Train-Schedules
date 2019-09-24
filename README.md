@@ -32,14 +32,17 @@ Pushing the data up to the Firebase data was pretty straighfoward as guided by o
 
 ## Code Snippits I like:
   1. I made a button so the user can click on to refresh the next arrival and minutes away             times since they're not (yet) dynamic. The train schedule data ("Route Name", "Destination",      "Frequency in Minutes" does not reset)
-
+   
+```
       var refresh = $('#refresh');
 
       refresh.on('click', function() {
       location.reload(true);
+```
 
-  2. This is my dynamic clock in the table section (Must give props to Daniel for this!). I made this so the user can have a clock to reference the next arrival and minutes away columns. My stretch goal is to make the Next Arrival and Minutes Away numbers all dynamic.
-
+  1. This is my dynamic clock in the table section (Must give props to Daniel for this!). I made this so the user can have a clock to reference the next arrival and minutes away columns. My stretch goal is to make the Next Arrival and Minutes Away numbers all dynamic.
+  2. 
+```
     // This fumnction uses moment's time method to format the clock time in military time to the seconds.
       var currentTimeClock = function() {
       var currentTime = moment();
@@ -49,20 +52,18 @@ Pushing the data up to the Firebase data was pretty straighfoward as guided by o
     // Using setInterval method to make the clock dynamic. 
       setInterval(currentTimeClock, 1000);
       currentTimeDOM.text(currentTimeClock);
+```
 
-  3. This is pretty simple but it's a solution to a bug where the data was not appending to the        table. I followed the timesheet exercise and in there, the data was appended to an id in the      thead section. That was not working for me so I experimemnted with work-arounds and targeting     a new id in the tbody section worked. I just like this because I probably would not have          thought of this so quickly one-and-a-half to two weeks ago. 
-    
+  3. This is pretty simple but it's a solution to a bug where the data was not appending to the table. I followed the timesheet exercise and in there, the data was appended to an id in the      thead section. That was not working for me so I experimemnted with work-arounds and targeting     a new id in the tbody section worked. I just like this because I probably would not have          thought of this so quickly one-and-a-half to two weeks ago. 
+  4. 
+```    
       tbody id="for-append" style="font-family: Monaco, 'Courier New', monospace; font-size: 13px; text-align: center;">
 
       var trainScheduleTable = $('#for-append');
       trainScheduleTable.append(tableRow);
+```
 
-## Links to portfolio pages (This app has been added to my portfolio pages): 
+## Link to portfolio page: 
 
-#### Please Note - I see that adding this project messed up the css formatting in each of those pages' portfolio content box. However, I intend to build my real portfolio page fromm scratch for the next home work assignment "Updating Your Portfolio Page". That's why I'm not fixing these at this moment.
+https://github.com/Olisun/Updated-Portfolio-Page
 
-https://olisun.github.io/Bootstrap-Portfolio/portfolio.html
-
-https://olisun.github.io/Responsive-Portfolio/portfolio.html
-
-https://olisun.github.io/Basic-Portfolio-New/portfolio.html
